@@ -1,8 +1,7 @@
 #include <iostream>
 
-#include "glad/glad.h"
-//
-#include "GLFW/glfw3.h"
+#include "Window.h"
+#include "spdlog/spdlog.h"
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
@@ -11,42 +10,19 @@ const char* TITLE = "Hello, world!";
 void init();
 
 int main() {
-    init();
-    GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, TITLE, NULL, NULL);
+    try {
+        Window window(WIDTH, HEIGHT, TITLE);
 
-    if (window == NULL) {
-        std::cerr << "Failed to create GLFW window" << std::endl;
+        while (window.Run()) {
+            window.PollEvents();
+
+            window.SwapBuffer();
+        }
+
+    } catch (std::runtime_error& err) {
+        spdlog::error(err.what());
         return -1;
     }
-
-    glfwMakeContextCurrent(window);
-
-    if (!gladLoadGL()) {
-        std::cerr << "Failed to load GL" << std::endl;
-        return -1;
-    }
-
-    glViewport(0, 0, WIDTH, HEIGHT);
-
-    while (!glfwWindowShouldClose(window)) {
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
-
-    glfwDestroyWindow(window);
-    glfwTerminate();
 
     return 0;
-}
-
-void init() {
-    glfwInit();
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GL_FALSE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
 }
