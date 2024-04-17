@@ -7,8 +7,6 @@ const int WIDTH = 800;
 const int HEIGHT = 600;
 const char* TITLE = "Hello, world!";
 
-void init();
-
 int main() {
     try {
         Window window(WIDTH, HEIGHT, TITLE);
@@ -16,6 +14,7 @@ int main() {
         while (window.Run()) {
             window.PollEvents();
 
+            window.Clear();
             window.SwapBuffer();
         }
 
