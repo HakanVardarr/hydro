@@ -1,4 +1,4 @@
-#include "Shader.h"
+#include "Graphics/Shader.h"
 
 #include <chrono>
 #include <iostream>
@@ -6,6 +6,8 @@
 #include <stdexcept>
 
 #include "spdlog/spdlog.h"
+
+namespace Hydro {
 
 Shader::Shader(const std::string filePath, const std::string name) {
     auto startTimer = std::chrono::high_resolution_clock::now();
@@ -34,6 +36,8 @@ Shader::Shader(const std::string filePath, const std::string name) {
 
     delete shaders;
 }
+
+Shader::~Shader() { glDeleteProgram(m_program); }
 
 GLuint Shader::compileShader(std::string shaderSource, int shaderType) {
     const GLchar* source = shaderSource.c_str();
@@ -106,3 +110,4 @@ std::tuple<std::string, std::string>* Shader::readShader(
         return nullptr;
     }
 }
+}  // namespace Hydro

@@ -9,6 +9,8 @@
 // ------------------
 #include "GLFW/glfw3.h"
 
+namespace Hydro {
+
 #define VERTEX 0
 #define FRAGMENT 1
 
@@ -18,7 +20,7 @@
 class Shader {
    public:
     Shader(const std::string filePath, const std::string name);
-    ~Shader(){};
+    ~Shader();
 
     void Use() const { glUseProgram(m_program); }
 
@@ -29,7 +31,7 @@ class Shader {
         glUniform1i(glGetUniformLocation(m_program, name.c_str()), value);
     }
     void SetFloat(const std::string &name, float value) const {
-        glUniform1f(glGetUniformLocation(m_program, name.c_str()), (int)value);
+        glUniform1f(glGetUniformLocation(m_program, name.c_str()), value);
     }
 
    private:
@@ -42,4 +44,5 @@ class Shader {
     std::tuple<std::string, std::string> *readShader(std::string filePath);
 };
 
+}  // namespace Hydro
 #endif

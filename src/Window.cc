@@ -8,6 +8,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+namespace Hydro {
+
 #define DEFAULT_COLOR 0.356, 0.431, 0.882, 1.0
 
 Window::Window(const int width, const int height, const char* title)
@@ -83,3 +85,5 @@ bool Window::init() {
 #endif
     return true;
 }
+
+}  // namespace Hydro
