@@ -4,8 +4,11 @@
 #include <stdexcept>
 
 #include "spdlog/spdlog.h"
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+
+#define DEFAULT_COLOR 0.356, 0.431, 0.882, 1.0
 
 Window::Window(const int width, const int height, const char* title)
     : m_width(width), m_height(height) {
@@ -21,10 +24,11 @@ Window::Window(const int width, const int height, const char* title)
             throw std::runtime_error("[WINDOW]: Failed to load GL.");
         }
 
-        glClearColor(0.356, 0.431, 0.882, 1.0);
+        glClearColor(DEFAULT_COLOR);
 
         glViewport(0, 0, width, height);
         glfwSetFramebufferSizeCallback(m_glwindow, frameBufferSizeCallback);
+        glfwSwapInterval(1);
 
         loadDefaultIcon();
 
@@ -60,6 +64,7 @@ void Window::loadDefaultIcon() {
     GLFWimage images[1];
     images[0].pixels = stbi_load("../static/default.png", &images[0].width,
                                  &images[0].height, 0, 4);
+
     glfwSetWindowIcon(m_glwindow, 1, images);
     stbi_image_free(images[0].pixels);
 }
