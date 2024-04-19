@@ -10,7 +10,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/include
     ${CMAKE_SOURCE_DIR}/vendor
 )
-file(GLOB SOURCE ${CMAKE_SOURCE_DIR}/src/*.cc)
+file(GLOB CORE_SOURCE ${CMAKE_SOURCE_DIR}/src/Core/*.cc)
 file(GLOB GRAPHICS_SOURCE ${CMAKE_SOURCE_DIR}/src/Graphics/*.cc)
 
 FetchContent_Declare(
@@ -45,5 +45,5 @@ if (NOT spdlog_POPULATED)
     add_subdirectory(${spdlog_SOURCE_DIR} ${spdlog_BINARY_DIR})
 endif()
 
-add_executable(${PROJECT_NAME} main.cc ${SOURCE} ${GRAPHICS_SOURCE} ${CMAKE_SOURCE_DIR}/vendor/glad.c)
+add_executable(${PROJECT_NAME} main.cc ${CORE_SOURCE} ${GRAPHICS_SOURCE} ${CMAKE_SOURCE_DIR}/vendor/glad.c)
 target_link_libraries(${PROJECT_NAME} PRIVATE glfw spdlog)

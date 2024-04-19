@@ -1,21 +1,21 @@
 //Vertex
 #version 330 core
-layout(location = 0) in vec3 a_Pos;
-layout(location = 1) in vec3 a_Col;
+layout(location = 0) in vec3 aPos;
+layout(location = 1) in vec3 aColor;
 
-out vec4 color;
+out vec4 Color;
 
 void main() {
-    gl_Position = vec4(a_Pos, 1.0);
-    color = vec4(a_Col, 1.0);
+    gl_Position = vec4(aPos, 1.0);
+    Color = vec4(aColor, 1.0);
 }
 
 //Fragment
 #version 330 core
-in vec4 color;
-
 out vec4 FragColor;
 
+in vec4 Color;
+
 void main() {
-    FragColor = color;
+    FragColor = Color;
 }

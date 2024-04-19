@@ -12,8 +12,8 @@ class VertexBuffer {
     VertexBuffer(const float* verticies, GLuint size);
     ~VertexBuffer();
 
-    void Bind();
-    void Unbind();
+    void Bind() const;
+    void Unbind() const;
 
    private:
     GLuint m_id;

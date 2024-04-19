@@ -13,7 +13,7 @@ namespace Hydro {
 
 class Shader {
    public:
-    Shader(const std::string filePath, const std::string name);
+    Shader(const std::string filePath);
     ~Shader();
 
     void Use() const { glUseProgram(m_program); }

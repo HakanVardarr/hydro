@@ -11,7 +11,7 @@ VertexBuffer::VertexBuffer(const float* verticies, GLuint size) {
 
 VertexBuffer::~VertexBuffer() { glDeleteBuffers(1, &m_id); }
 
-void VertexBuffer::Bind() { glBindBuffer(GL_ARRAY_BUFFER, m_id); }
-void VertexBuffer::Unbind() { glBindBuffer(GL_ARRAY_BUFFER, 0); }
+void VertexBuffer::Bind() const { glBindBuffer(GL_ARRAY_BUFFER, m_id); }
+void VertexBuffer::Unbind() const { glBindBuffer(GL_ARRAY_BUFFER, 0); }
 
 }  // namespace Hydro

@@ -1,8 +1,8 @@
+#include "Core/Window.h"
 #include "Graphics/IndexBuffer.h"
 #include "Graphics/Shader.h"
 #include "Graphics/VertexArray.h"
 #include "Graphics/VertexBuffer.h"
-#include "Window.h"
 #include "spdlog/spdlog.h"
 
 const int WIDTH = 800;
@@ -22,21 +22,17 @@ const int INDICES[] = {
     0, 1, 3,
     1, 2, 3
 };
-
 // clang-format on
 
 int main() {
-    spdlog::set_level(spdlog::level::debug);
-
     try {
         Hydro::Window window(WIDTH, HEIGHT, TITLE);
 
         Hydro::VertexBuffer triangleVertexBuffer(VERTICES, sizeof(VERTICES));
-
         Hydro::VertexArray triangleVertexArray(triangleVertexBuffer, {3, 3});
-
         Hydro::IndexBuffer triangleIndexBuffer(INDICES, sizeof(INDICES));
-        Hydro::Shader triangleShader("/shaders/triangle.glsl", "Triangle");
+
+        Hydro::Shader triangleShader("/shaders/triangle.glsl");
 
         while (window.Run()) {
             window.Clear();

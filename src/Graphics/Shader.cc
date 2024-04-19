@@ -1,7 +1,5 @@
 #include "Graphics/Shader.h"
 
-#include <chrono>
-#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
@@ -25,8 +23,7 @@
 
 namespace Hydro {
 
-Shader::Shader(const std::string filePath, const std::string name) {
-    auto startTimer = std::chrono::high_resolution_clock::now();
+Shader::Shader(const std::string filePath) {
     std::tuple<std::string, std::string>* shaders = readShader(filePath);
     if (shaders == nullptr) {
         throw std::runtime_error("Cannot read the file: " + filePath);
@@ -41,12 +38,6 @@ Shader::Shader(const std::string filePath, const std::string name) {
     linkProgram(vertex, fragment);
     checkCompileErrors(m_program, PROGRAM);
 
-    auto endTimer = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(
-        endTimer - startTimer);
-
-    spdlog::debug("{} shader compiled in {}μs.", name, duration.count());
-
     delete shaders;
 }
 
@@ -56,8 +47,9 @@ GLuint Shader::compileShader(std::string shaderSource, int shaderType) {
     const GLchar* source = shaderSource.c_str();
     if (shaderType == VERTEX) {
         RETURNSHADER(GL_VERTEX_SHADER, source);
+    } else if (shaderType == FRAGMENT) {
+        RETURNSHADER(GL_FRAGMENT_SHADER, source);
     }
-    RETURNSHADER(GL_FRAGMENT_SHADER, source);
 }
 
 void Shader::linkProgram(GLuint vertex, GLuint fragment) {
