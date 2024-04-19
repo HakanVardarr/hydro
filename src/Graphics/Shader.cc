@@ -7,6 +7,22 @@
 
 #include "spdlog/spdlog.h"
 
+#define VERTEX 0
+#define FRAGMENT 1
+
+#define SHADER 0
+#define PROGRAM 1
+
+#define RETURNSHADER(type, source)                   \
+    GLuint shader_##type = glCreateShader(type);     \
+    glShaderSource(shader_##type, 1, &source, NULL); \
+    glCompileShader(shader_##type);                  \
+    return shader_##type;
+
+#define COMPILESHADER(type, shader_type)                    \
+    GLuint type = compileShader(source##type, shader_type); \
+    checkCompileErrors(type, SHADER);
+
 namespace Hydro {
 
 Shader::Shader(const std::string filePath, const std::string name) {
@@ -16,14 +32,11 @@ Shader::Shader(const std::string filePath, const std::string name) {
         throw std::runtime_error("Cannot read the file: " + filePath);
     }
 
-    std::string vertexSource = std::get<0>(*shaders);
-    std::string fragmentSource = std::get<1>(*shaders);
+    std::string sourcevertex = std::get<0>(*shaders);
+    std::string sourcefragment = std::get<1>(*shaders);
 
-    GLuint vertex = compileShader(vertexSource, VERTEX);
-    checkCompileErrors(vertex, SHADER);
-
-    GLuint fragment = compileShader(fragmentSource, FRAGMENT);
-    checkCompileErrors(fragment, SHADER);
+    COMPILESHADER(vertex, VERTEX);
+    COMPILESHADER(fragment, FRAGMENT);
 
     linkProgram(vertex, fragment);
     checkCompileErrors(m_program, PROGRAM);
@@ -41,18 +54,10 @@ Shader::~Shader() { glDeleteProgram(m_program); }
 
 GLuint Shader::compileShader(std::string shaderSource, int shaderType) {
     const GLchar* source = shaderSource.c_str();
-
     if (shaderType == VERTEX) {
-        GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(vertex, 1, &source, NULL);
-        glCompileShader(vertex);
-        return vertex;
-    } else {
-        GLuint fragment = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fragment, 1, &source, NULL);
-        glCompileShader(fragment);
-        return fragment;
+        RETURNSHADER(GL_VERTEX_SHADER, source);
     }
+    RETURNSHADER(GL_FRAGMENT_SHADER, source);
 }
 
 void Shader::linkProgram(GLuint vertex, GLuint fragment) {

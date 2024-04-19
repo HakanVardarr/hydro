@@ -11,12 +11,6 @@
 
 namespace Hydro {
 
-#define VERTEX 0
-#define FRAGMENT 1
-
-#define SHADER 0
-#define PROGRAM 1
-
 class Shader {
    public:
     Shader(const std::string filePath, const std::string name);
