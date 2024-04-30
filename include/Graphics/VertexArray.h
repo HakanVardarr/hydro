@@ -7,8 +7,6 @@
 // ------------------
 #include "GLFW/glfw3.h"
 
-namespace Hydro {
-
 class VertexArray {
    public:
     VertexArray(VertexBuffer &vertexBuffer,
@@ -21,6 +19,4 @@ class VertexArray {
    private:
     GLuint m_id;
 };
-
-}  // namespace Hydro
 #endif

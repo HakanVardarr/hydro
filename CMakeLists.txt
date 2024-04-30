@@ -40,10 +40,8 @@ FetchContent_MakeAvailable(spdlog)
 FetchContent_GetProperties(spdlog)
 if (NOT spdlog_POPULATED) 
     FetchContent_Populate(spdlog)
-
-
     add_subdirectory(${spdlog_SOURCE_DIR} ${spdlog_BINARY_DIR})
 endif()
 
-add_executable(${PROJECT_NAME} main.cc ${CORE_SOURCE} ${GRAPHICS_SOURCE} ${CMAKE_SOURCE_DIR}/vendor/glad.c)
+add_executable(${PROJECT_NAME} game.cc ${CORE_SOURCE} ${GRAPHICS_SOURCE} ${CMAKE_SOURCE_DIR}/vendor/glad.c)
 target_link_libraries(${PROJECT_NAME} PRIVATE glfw spdlog)

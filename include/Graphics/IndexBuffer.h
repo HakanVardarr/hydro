@@ -5,8 +5,6 @@
 // ------------------
 #include "GLFW/glfw3.h"
 
-namespace Hydro {
-
 class IndexBuffer {
    public:
     IndexBuffer(const int *indices, GLuint size);
@@ -21,7 +19,5 @@ class IndexBuffer {
     GLuint m_id;
     GLsizei m_size;
 };
-
-}  // namespace Hydro
 
 #endif

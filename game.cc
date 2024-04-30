@@ -11,28 +11,26 @@ const char* TITLE = "Hydro";
 
 // clang-format off
 const float VERTICES[] = {
-    // Position         // Color
-     0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
-     0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-    -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,   
-    -0.5f,  0.5f, 0.0f, 0.3f, 0.6f, 0.5f,
+     //Position      //Color
+     0.0, 0.5,  0.0, 1.0, 0.0, 0.0,
+    -0.5, -0.5, 0.0, 0.0, 1.0, 0.0,
+     0.5, -0.5, 0.0, 0.0, 0.0, 1.0,
 };
 
 const int INDICES[] = {
-    0, 1, 3,
-    1, 2, 3
+    0, 1, 2,
 };
 // clang-format on
 
 int main() {
     try {
-        Hydro::Window window(WIDTH, HEIGHT, TITLE);
+        Window window(WIDTH, HEIGHT, TITLE);
 
-        Hydro::VertexBuffer triangleVertexBuffer(VERTICES, sizeof(VERTICES));
-        Hydro::VertexArray triangleVertexArray(triangleVertexBuffer, {3, 3});
-        Hydro::IndexBuffer triangleIndexBuffer(INDICES, sizeof(INDICES));
+        VertexBuffer triangleVertexBuffer(VERTICES, sizeof(VERTICES));
+        VertexArray triangleVertexArray(triangleVertexBuffer, {3, 3});
+        IndexBuffer triangleIndexBuffer(INDICES, sizeof(INDICES));
 
-        Hydro::Shader triangleShader("/shaders/triangle.glsl");
+        Shader triangleShader("/shaders/default.glsl");
 
         while (window.Run()) {
             window.Clear();

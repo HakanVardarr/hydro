@@ -5,8 +5,6 @@
 // ------------------
 #include "GLFW/glfw3.h"
 
-namespace Hydro {
-
 class Window {
    public:
     Window(const int width, const int height, const char* title);
@@ -30,5 +28,4 @@ class Window {
     bool init();
 };
 
-}  // namespace Hydro
 #endif

@@ -7,8 +7,6 @@
 // ------------------
 #include "GLFW/glfw3.h"
 
-namespace Hydro {
-
 VertexArray::VertexArray(VertexBuffer &vertexBuffer,
                          std::vector<unsigned int> attributes) {
     vertexBuffer.Bind();
@@ -33,7 +31,4 @@ VertexArray::VertexArray(VertexBuffer &vertexBuffer,
 VertexArray::~VertexArray() { glDeleteBuffers(1, &m_id); }
 
 void VertexArray::Bind() const { glBindVertexArray(m_id); }
-
 void VertexArray::Unbind() const { glBindVertexArray(0); }
-
-}  // namespace Hydro

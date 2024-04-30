@@ -9,8 +9,6 @@
 // ------------------
 #include "GLFW/glfw3.h"
 
-namespace Hydro {
-
 class Shader {
    public:
     Shader(const std::string filePath);
@@ -38,5 +36,4 @@ class Shader {
     std::tuple<std::string, std::string> *readShader(std::string filePath);
 };
 
-}  // namespace Hydro
 #endif

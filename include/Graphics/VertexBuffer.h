@@ -5,8 +5,6 @@
 // ------------------
 #include "GLFW/glfw3.h"
 
-namespace Hydro {
-
 class VertexBuffer {
    public:
     VertexBuffer(const float* verticies, GLuint size);
@@ -18,7 +16,5 @@ class VertexBuffer {
    private:
     GLuint m_id;
 };
-
-}  // namespace Hydro
 
 #endif

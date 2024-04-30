@@ -21,11 +21,11 @@
     GLuint type = compileShader(source##type, shader_type); \
     checkCompileErrors(type, SHADER);
 
-namespace Hydro {
-
 Shader::Shader(const std::string filePath) {
     std::tuple<std::string, std::string>* shaders = readShader(filePath);
-    if (shaders == nullptr) { throw std::runtime_error("Cannot read the file: " + filePath); }
+    if (shaders == nullptr) {
+        throw std::runtime_error("Cannot read the file: " + filePath);
+    }
 
     std::string sourcevertex = std::get<0>(*shaders);
     std::string sourcefragment = std::get<1>(*shaders);
@@ -45,7 +45,7 @@ GLuint Shader::compileShader(std::string shaderSource, int shaderType) {
     const GLchar* source = shaderSource.c_str();
     if (shaderType == VERTEX) {
         RETURNSHADER(GL_VERTEX_SHADER, source);
-    } else  {
+    } else {
         RETURNSHADER(GL_FRAGMENT_SHADER, source);
     }
 }
@@ -81,12 +81,13 @@ void Shader::checkCompileErrors(GLuint id, int type) {
     }
 }
 
-std::tuple<std::string, std::string>* Shader::readShader(const std::string filePath) {
+std::tuple<std::string, std::string>* Shader::readShader(
+    const std::string filePath) {
     std::stringstream vertexSource, fragmentSource;
     std::ifstream shaderFile(".." + filePath);
 
     if (!shaderFile.is_open()) return nullptr;
-    
+
     std::string line;
     while (getline(shaderFile, line) && line != "//Fragment") {
         if (line != "//Vertex") vertexSource << line << "\n";
@@ -94,6 +95,6 @@ std::tuple<std::string, std::string>* Shader::readShader(const std::string fileP
     while (getline(shaderFile, line)) fragmentSource << line << "\n";
 
     shaderFile.close();
-    return new std::tuple<std::string, std::string>(vertexSource.str(), fragmentSource.str());
+    return new std::tuple<std::string, std::string>(vertexSource.str(),
+                                                    fragmentSource.str());
 }
-}  // namespace Hydro
