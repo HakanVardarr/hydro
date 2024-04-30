@@ -5,6 +5,8 @@
 
 #include "spdlog/spdlog.h"
 
+#define UNIFORM_LOCATION glGetUniformLocation(m_program, name.c_str())
+
 #define VERTEX 0
 #define FRAGMENT 1
 
@@ -40,6 +42,18 @@ Shader::Shader(const std::string filePath) {
 }
 
 Shader::~Shader() { glDeleteProgram(m_program); }
+
+void Shader::SetBool(const std::string& name, bool value) const {
+    glUniform1i(UNIFORM_LOCATION, (int)value);
+}
+
+void Shader::SetInt(const std::string& name, int value) const {
+    glUniform1i(UNIFORM_LOCATION, value);
+}
+
+void Shader::SetFloat(const std::string& name, float value) const {
+    glUniform1f(UNIFORM_LOCATION, value);
+}
 
 GLuint Shader::compileShader(std::string shaderSource, int shaderType) {
     const GLchar* source = shaderSource.c_str();

@@ -15,16 +15,9 @@ class Shader {
     ~Shader();
 
     void Use() const { glUseProgram(m_program); }
-
-    void SetBool(const std::string &name, bool value) const {
-        glUniform1i(glGetUniformLocation(m_program, name.c_str()), (int)value);
-    }
-    void SetInt(const std::string &name, int value) const {
-        glUniform1i(glGetUniformLocation(m_program, name.c_str()), value);
-    }
-    void SetFloat(const std::string &name, float value) const {
-        glUniform1f(glGetUniformLocation(m_program, name.c_str()), value);
-    }
+    void SetBool(const std::string &name, bool value) const;
+    void SetInt(const std::string &name, int value) const;
+    void SetFloat(const std::string &name, float value) const;
 
    private:
     GLuint m_program;

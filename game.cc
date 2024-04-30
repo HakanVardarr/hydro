@@ -1,5 +1,6 @@
 #include "Core/Window.h"
 #include "Graphics/IndexBuffer.h"
+#include "Graphics/Renderer.h"
 #include "Graphics/Shader.h"
 #include "Graphics/VertexArray.h"
 #include "Graphics/VertexBuffer.h"
@@ -35,11 +36,8 @@ int main() {
         while (window.Run()) {
             window.Clear();
 
-            triangleShader.Use();
-            triangleVertexArray.Bind();
-            triangleIndexBuffer.Bind();
-            glDrawElements(GL_TRIANGLES, triangleIndexBuffer.Size(),
-                           GL_UNSIGNED_INT, 0);
+            Renderer::Draw(triangleShader, triangleVertexArray,
+                           triangleIndexBuffer);
 
             window.SwapBuffer();
             window.PollEvents();
